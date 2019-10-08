@@ -79,8 +79,6 @@
 
 例子：
 ```yaml
-youcash:
-  k2:
     upload:
       types:
         default:
