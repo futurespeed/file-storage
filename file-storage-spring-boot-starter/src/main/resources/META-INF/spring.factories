@@ -1,0 +1,8 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.fs.autoconfig.file.FileStorageAutoConfiguration,\
+org.fs.autoconfig.file.SwiftFileStorageAutoConfiguration,\
+org.fs.autoconfig.file.SftpFileStorageAutoConfiguration,\
+org.fs.autoconfig.file.GroupFileStorageAutoConfiguration,\
+org.fs.autoconfig.file.FileUploadAutoConfiguration,\
+org.fs.autoconfig.ftp.SftpAutoConfiguration,\
+org.fs.autoconfig.web.SwiftAutoConfiguration
