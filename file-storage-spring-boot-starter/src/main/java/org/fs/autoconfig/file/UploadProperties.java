@@ -1,4 +1,4 @@
-package org.fs.autoconfigure;
+package org.fs.autoconfig.file;
 
 import org.fs.file.FileUploadConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -9,9 +9,9 @@ import java.util.Map;
 /**
  * 文件上传参数
  *
- * @author gaojingxin
+ *
  */
-@ConfigurationProperties("upload")
+@ConfigurationProperties("fs.upload")
 public class UploadProperties {
 
     /**

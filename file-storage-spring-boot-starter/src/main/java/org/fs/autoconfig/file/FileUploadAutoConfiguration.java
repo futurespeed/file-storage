@@ -1,4 +1,4 @@
-package org.fs.autoconfigure;
+package org.fs.autoconfig.file;
 
 import org.fs.file.FileStorageTemplate;
 import org.fs.file.FileUploadConfig;
@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartResolver;
 
 /**
  * 文件上传自动配置
+ *
  *
  */
 @Configuration

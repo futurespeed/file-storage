@@ -17,6 +17,7 @@
 
 ### 例子
 ```yaml
+  fs:
     file-storage:
       default-type: swift-c2
       types:
@@ -79,6 +80,7 @@
 
 例子：
 ```yaml
+  fs:
     upload:
       types:
         default:

@@ -1,4 +1,4 @@
-package org.fs.autoconfigure;
+package org.fs.autoconfig.file;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,10 +10,11 @@ import java.util.Map;
 /**
  * 文件存储参数
  *
+ *
  */
 @Getter
 @Setter
-@ConfigurationProperties("file-storage")
+@ConfigurationProperties("fs.file-storage")
 public class FileStorageProperties {
 
     /**
@@ -28,6 +29,7 @@ public class FileStorageProperties {
 
     /**
      * 存储类型
+     *
      *
      */
     @Getter

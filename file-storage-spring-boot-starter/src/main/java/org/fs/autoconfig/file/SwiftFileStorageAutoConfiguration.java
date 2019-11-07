@@ -1,6 +1,6 @@
-package org.fs.autoconfigure;
+package org.fs.autoconfig.file;
 
-import org.fs.autoconfigure.web.SwiftAutoConfiguration;
+import org.fs.autoconfig.web.SwiftAutoConfiguration;
 import org.fs.common.Callback;
 import org.fs.file.FileInfo;
 import org.fs.file.FileStorageHandler;
@@ -21,7 +21,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * K2-Swift存储自动配置
+ * Swift存储自动配置
+ *
  *
  */
 @Configuration
@@ -29,7 +30,7 @@ import java.util.Map;
 @ConditionalOnMissingClass({"com.youcash.ucff.filestorage.swift.template.SwiftTemplate"})
 @AutoConfigureAfter({FileStorageAutoConfiguration.class, SwiftAutoConfiguration.class})
 @AutoConfigureBefore({GroupFileStorageAutoConfiguration.class})
-public class K2SwiftFileStorageAutoConfiguration {
+public class SwiftFileStorageAutoConfiguration {
 
     @Bean
     @ConditionalOnBean({FileStorageTemplate.class, SwiftTemplate.class})
@@ -52,6 +53,7 @@ public class K2SwiftFileStorageAutoConfiguration {
 
     /**
      * Swift文件存储控制器
+     *
      *
      */
     public static class SwiftFileStorageHandler implements FileStorageHandler {

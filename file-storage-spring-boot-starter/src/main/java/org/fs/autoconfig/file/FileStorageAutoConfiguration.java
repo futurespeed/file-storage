@@ -1,4 +1,4 @@
-package org.fs.autoconfigure;
+package org.fs.autoconfig.file;
 
 import org.fs.file.FileInfo;
 import org.fs.file.FileInfoHandler;
@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * 文件存储配置
+ *
  *
  */
 @Configuration

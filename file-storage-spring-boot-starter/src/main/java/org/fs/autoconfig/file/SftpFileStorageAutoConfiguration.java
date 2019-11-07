@@ -1,10 +1,11 @@
-package org.fs.autoconfigure;
+package org.fs.autoconfig.file;
 
-import org.fs.autoconfigure.ftp.SftpAutoConfiguration;
+import org.fs.autoconfig.ftp.SftpAutoConfiguration;
 import org.fs.common.Callback;
 import org.fs.file.FileInfo;
 import org.fs.file.FileStorageHandler;
 import org.fs.file.FileStorageTemplate;
+import org.fs.file.FileUtils;
 import org.fs.ftp.SftpSetting;
 import org.fs.ftp.SftpTemplate;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -15,12 +16,17 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
  * SFTP存储自动配置
+ *
  *
  */
 @Configuration
@@ -49,6 +55,7 @@ public class SftpFileStorageAutoConfiguration {
 
     /**
      * SFTP文件存储控制器
+     *
      *
      */
     public static class SftpFileStorageHandler implements FileStorageHandler {
@@ -90,29 +97,29 @@ public class SftpFileStorageAutoConfiguration {
         @Override
         public <T> T storageFile(FileInfo fileInfo, Callback<OutputStream, T> callback) {
             // 先保存到临时文件
-            File tmpFile;
+            Path tmpFilePath;
             try {
-                tmpFile = File.createTempFile("fsf_", "_file");
+                tmpFilePath = Files.createTempFile("fsf_", "_file");
             } catch (IOException e) {
                 throw new RuntimeException("创建临时文件失败", e);
             }
-            if (null == tmpFile) {
+            if (null == tmpFilePath) {
                 throw new RuntimeException("创建临时文件失败");
             }
             T result;
-            try (OutputStream out = new FileOutputStream(tmpFile)) {
+            try (OutputStream out = Files.newOutputStream(tmpFilePath)) {
                 result = callback.call(out);
                 out.flush();
             } catch (IOException e) {
-                tmpFile.delete();
+                FileUtils.delete(tmpFilePath);
                 throw new RuntimeException("保存临时文件失败", e);
             }
-            try (InputStream in = new FileInputStream(tmpFile)) {
+            try (InputStream in = Files.newInputStream(tmpFilePath)) {
                 storageFile(fileInfo, in);
             } catch (IOException e) {
                 throw new RuntimeException("上传文件失败", e);
             } finally {
-                tmpFile.delete();
+                FileUtils.delete(tmpFilePath);
             }
             return result;
         }
@@ -127,28 +134,28 @@ public class SftpFileStorageAutoConfiguration {
         @Override
         public <T> T getFile(FileInfo fileInfo, Callback<InputStream, T> callback) {
             // 先保存到临时文件
-            File tmpFile;
+            Path tmpFilePath;
             try {
-                tmpFile = File.createTempFile("fsf_", "_file");
+                tmpFilePath = Files.createTempFile("fsf_", "_file");
             } catch (IOException e) {
                 throw new RuntimeException("创建临时文件失败", e);
             }
-            if (null == tmpFile) {
+            if (null == tmpFilePath) {
                 throw new RuntimeException("创建临时文件失败");
             }
-            try (OutputStream out = new FileOutputStream(tmpFile)) {
+            try (OutputStream out = Files.newOutputStream(tmpFilePath)) {
                 getFile(fileInfo, out);
                 out.flush();
             } catch (IOException e) {
-                tmpFile.delete();
+                FileUtils.delete(tmpFilePath);
                 throw new RuntimeException("保存临时文件失败", e);
             }
-            try (InputStream in = new FileInputStream(tmpFile)) {
+            try (InputStream in = Files.newInputStream(tmpFilePath)) {
                 return callback.call(in);
             } catch (IOException e) {
                 throw new RuntimeException("上传文件失败", e);
             } finally {
-                tmpFile.delete();
+                FileUtils.delete(tmpFilePath);
             }
         }
 
