@@ -81,7 +81,7 @@
 ### Example
 ```yaml
   fs:
-    upload:
+    file-upload:
       types:
         default:
           max-size: 50m

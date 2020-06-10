@@ -12,7 +12,7 @@
         <relativePath />
     </parent>
 
-    <groupId>org.fs</groupId>
+    <groupId>fs</groupId>
     <artifactId>file-storage</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
@@ -78,7 +78,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.fs</groupId>
+                <groupId>fs</groupId>
                 <artifactId>file-storage-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
